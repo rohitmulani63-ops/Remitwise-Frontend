@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Check, Clock, X, ChevronRight } from 'lucide-react';
+import { useDensity } from '@/lib/context/DensityContext';
 
 type TransactionStatus = 'Completed' | 'Pending' | 'Failed';
 
@@ -91,9 +92,12 @@ const StatusBadge = ({ status }: { status: TransactionStatus }) => {
 };
 
 const RecentTransactionsWidget = () => {
+    const { density } = useDensity();
+    const isCompact = density === 'compact';
+
     return (
         <div className="bg-[#0A0A0A] rounded-2xl border border-white/10 p-6 w-full">
-            <div className="flex justify-between items-start mb-8">
+            <div className={`flex justify-between items-start ${isCompact ? 'mb-4' : 'mb-8'}`}>
                 <div>
                     <h2 className="text-xl font-bold text-white mb-1">Recent Transactions</h2>
                     <p className="text-sm text-gray-400">Last 5 activities</p>
@@ -121,15 +125,15 @@ const RecentTransactionsWidget = () => {
                     <tbody className="divide-y divide-white/5">
                         {transactions.map((tx) => (
                             <tr key={tx.id} className="group hover:bg-white/[0.02] transition-colors">
-                                <td className="py-4 text-sm text-gray-400">{tx.date}</td>
-                                <td className="py-4 text-sm font-bold text-white">{tx.description}</td>
-                                <td className="py-4 text-center">
+                                <td className={`${isCompact ? 'py-2' : 'py-4'} text-sm text-gray-400`}>{tx.date}</td>
+                                <td className={`${isCompact ? 'py-2' : 'py-4'} text-sm font-bold text-white`}>{tx.description}</td>
+                                <td className={`${isCompact ? 'py-2' : 'py-4'} text-center`}>
                                     <span className="inline-block px-3 py-1 rounded-full bg-white/5 text-gray-400 text-xs">
                                         {tx.category}
                                     </span>
                                 </td>
-                                <td className="py-4 text-sm font-bold text-white text-right">{tx.amount}</td>
-                                <td className="py-4 text-right flex justify-end">
+                                <td className={`${isCompact ? 'py-2' : 'py-4'} text-sm font-bold text-white text-right`}>{tx.amount}</td>
+                                <td className={`${isCompact ? 'py-2' : 'py-4'} text-right flex justify-end`}>
                                     <StatusBadge status={tx.status} />
                                 </td>
                             </tr>
@@ -139,9 +143,9 @@ const RecentTransactionsWidget = () => {
             </div>
 
             {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
+            <div className={`md:hidden ${isCompact ? 'space-y-2' : 'space-y-4'}`}>
                 {transactions.map((tx) => (
-                    <div key={tx.id} className="bg-white/[0.03] rounded-xl border border-white/5 p-5">
+                    <div key={tx.id} className={`bg-white/[0.03] rounded-xl border border-white/5 ${isCompact ? 'p-3' : 'p-5'}`}>
                         <div className="flex justify-between items-start mb-2">
                             <h3 className="text-base font-bold text-white leading-tight pr-4">{tx.description}</h3>
                             <div className="flex-shrink-0">
