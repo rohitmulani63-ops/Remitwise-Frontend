@@ -12,6 +12,7 @@ export function UnpaidBillsSection() {
     const unpaidBills = mockBills.filter((bill) =>
         unpaidStatuses.includes(bill.status)
     );
+    const recurringUnpaidCount = unpaidBills.filter((bill) => bill.isRecurring).length;
 
 
     return (
@@ -24,6 +25,7 @@ export function UnpaidBillsSection() {
                     </h2>
                     <p className="font-normal text-sm leading-5 tracking-[-0.150391px] text-white/40">
                         {unpaidBills.length} bills pending payment
+                        {recurringUnpaidCount > 0 ? ` - ${recurringUnpaidCount} recurring` : ''}
                     </p>
                 </div>
             </div>
