@@ -37,10 +37,11 @@ export function UnpaidBillsSection() {
             {statusOrder.map((status) => {
                 const bills = billsByStatus[status] ?? [];
                 if (!bills.length) return null;
-                const headerStyles = {
+                const headerStyles: Record<string, string> = {
                     overdue: "text-red-400",
                     urgent: "text-amber-400",
                     upcoming: "text-white/60",
+                    paid: "text-green-400",
                 };
                 return (
                     <section key={status} className="mb-4">

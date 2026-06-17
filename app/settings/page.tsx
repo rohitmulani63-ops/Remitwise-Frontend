@@ -16,6 +16,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { useDensity } from "@/lib/context/DensityContext";
+import { useToast } from "@/lib/context/ToastContext";
 
 
 const SECTIONS = [
