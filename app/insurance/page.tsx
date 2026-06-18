@@ -253,7 +253,16 @@ export default function Insurance() {
               t={t}
             />
           </div>
-        </div>
+function PolicyCard({ name, coverageType, monthlyPremium, coverageAmount, nextPayment, active }: { 
+  name: string, 
+  coverageType: string, 
+  monthlyPremium: number, 
+  coverageAmount: number, 
+  nextPayment: string,
+  active: boolean 
+}) {
+  const paymentStatus = getPolicyPaymentPresentation(nextPayment, active);
+  const StatusIcon = paymentStatus.icon;
 
         {/* ── Integration note ── */}
         <div
